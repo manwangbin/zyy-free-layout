@@ -45,7 +45,7 @@ export default defineComponent({
     return h(
       "div",
       {
-        ref: "container",
+        ref: (el) => {this.$props.widget.container = el as HTMLElement},
         class: this.containerClass,
         style: {
           transform: this.cssTransform(),

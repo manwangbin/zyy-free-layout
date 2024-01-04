@@ -85,7 +85,7 @@ export class FreeLayoutService {
   }
 
   createNewWidget(option: WidgetOption, startEvent: MouseEvent) {
-    const id = uuidv4();
+    const id = option.id || uuidv4();
     const options: DesignWidget = {
       ...option,
       id,
@@ -144,12 +144,13 @@ export class FreeLayoutService {
 
   addWidget(options: DesignWidget) {
     const widget = new Widget(options, this);
-    if (this.options.disableDrag !== undefined) {
+    // 如果全局禁用了，则组件全部禁用，如果全局没禁用则使用组件的规则
+    if (this.options.disableDrag) {
       widget.disableDrag = this.options.disableDrag;
     } else {
       widget.disableDrag = options.disableDrag;
     }
-    if (this.options.disableResize !== undefined) {
+    if (this.options.disableResize) {
       widget.disableResize = this.options.disableResize;
     } else {
       widget.disableResize = options.disableResize;
@@ -169,8 +170,8 @@ export class FreeLayoutService {
   deleteWidget(id: string) {
     const idx = this.model.widgets.findIndex((widget) => widget.id === id);
     if (idx > -1) {
-      this.model.widgets.splice(idx, 1);
-      this.$emit("delete", id);
+      const delWidget = this.model.widgets.splice(idx, 1);
+      this.$emit("delete", delWidget[0]);
     }
   }
 

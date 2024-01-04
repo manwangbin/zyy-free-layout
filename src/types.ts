@@ -3,6 +3,7 @@ import { Widget } from "./service/widget";
 import { WidgetState } from "./enums";
 
 export interface WidgetOption {
+  id?: string;
   tag: string;
   width: number;
   height: number;

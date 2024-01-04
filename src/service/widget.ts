@@ -4,6 +4,8 @@ import { FreeLayoutService } from "./index";
 import { onMouseMove } from "@/utils";
 
 export class Widget implements DesignWidget {
+  container: HTMLElement | null = null;
+
   id: string;
 
   tag: string;

@@ -45,8 +45,8 @@ export default defineComponent({
       }>,
       default: () => ({
         disabled: false,
-        border: "1px solid #ffffff",
-        background: "rgba(255,255,255,0.3)"
+        border: "1px solid #b3e5fc",
+        background: "rgba(179,229,252,0.2)"
       })
     }
   },
@@ -134,7 +134,7 @@ export default defineComponent({
       },
       [
         this.$slots.widgetBefore && this.$slots.widgetBefore(),
-        this.renderNewWidget(),
+        this.service.model.newWidget && this.renderNewWidget(),
         this.renderWidgets(),
         this.$slots.widgetAfter && this.$slots.widgetAfter(),
         this.service.model.selectedArea && this.renderSelectedArea()
