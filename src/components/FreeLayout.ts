@@ -48,9 +48,15 @@ export default defineComponent({
         border: "1px solid #b3e5fc",
         background: "rgba(179,229,252,0.2)"
       })
+    },
+    widgetClass: {
+      type: Function as PropType<(widget: Widget) => string[]>
+    },
+    widgetStyle: {
+      type: Function as PropType<(widget: Widget) => Record<string, keyof any>>
     }
   },
-  emits: ["createWidget", "attached", "drag-start", "moving", "moved", "delete"],
+  emits: ["createWidget", "attached", "drag-start", "moving", "moved", "delete", "widgetClick"],
   setup(props, { emit }) {
     const container: Ref<HTMLElement | null> = ref(null);
 
@@ -79,7 +85,9 @@ export default defineComponent({
       if (!service.model.newWidget) return h("div");
       return h(DragContainer, {
         key: service.model.newWidget.id,
-        widget: service.model.newWidget
+        widget: service.model.newWidget,
+        widgetClass: props.widgetClass,
+        widgetStyle: props.widgetStyle
       });
     }
 
@@ -87,7 +95,9 @@ export default defineComponent({
       return service.model.widgets.map((widget) =>
         h(DragContainer, {
           key: widget.id,
-          widget
+          widget,
+          widgetClass: props.widgetClass,
+          widgetStyle: props.widgetStyle
         })
       );
     }

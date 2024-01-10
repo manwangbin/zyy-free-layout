@@ -35,7 +35,7 @@ export class FreeLayoutService {
     options: LayoutOptions,
     public container: Ref<HTMLElement | null>,
     public $emit: (
-      event: "createWidget" | "attached" | "drag-start" | "moving" | "moved" | "delete",
+      event: "createWidget" | "attached" | "drag-start" | "moving" | "moved" | "delete" | "widgetClick",
       ...args: any[]
     ) => void,
     public renderWidget?: (widget: Widget) => VNode,

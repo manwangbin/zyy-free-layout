@@ -9,10 +9,15 @@ export default defineComponent({
     widget: {
       type: Object as PropType<Widget>,
       required: true
+    },
+    widgetClass: {
+      type: Function as PropType<(widget: Widget) => string[]>
+    },
+    widgetStyle: {
+      type: Function as PropType<(widget: Widget) => Record<string, keyof any>>
     }
   },
 
-  emits: ["drag-start", "drag-moving", "drag-end", "state-changed"],
   setup(props) {
     const service = FreeLayoutService.inject();
     const containerClass = computed(() => {
@@ -22,6 +27,11 @@ export default defineComponent({
       }
       if (props.widget.moving) {
         className += " moving";
+      }
+      if(props.widgetClass) {
+        const classList = props.widgetClass(props.widget);
+        className += " ";
+        className += classList.join(" ");
       }
       return className;
     });
@@ -41,23 +51,27 @@ export default defineComponent({
 
   render() {
     const levels = this.$props.widget.moving ? 99999: this.$props.widget.levels;
+    const style = this.$props.widgetStyle && this.$props.widgetStyle(this.$props.widget);
 
     return h(
       "div",
       {
-        ref: (el) => {this.$props.widget.container = el as HTMLElement},
+        ref: (el) => (this.$props.widget.container = el as HTMLElement),
         class: this.containerClass,
         style: {
           transform: this.cssTransform(),
           width: `${this.$props.widget.width}px`,
           height: `${this.$props.widget.height}px`,
-          zIndex: levels
+          zIndex: levels,
+          ...style
         },
-        onMousedown: (e: MouseEvent ) => {
+        onMousedown: (e) => {
           !this.$props.widget.customDragNode && this.$props.widget.startDrag(e)
-        }
+        },
+        onClick: (e) => this.service?.$emit("widgetClick", this.widget, e)
       },
       [this.service?.renderWidget && this.service.renderWidget(this.$props.widget)]
     );
   }
 });
+
