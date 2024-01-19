@@ -19,3 +19,5 @@ export { DragService } from "./service/dragService";
 export { WidgetState } from "./enums";
 
 export { onMouseMove } from "./utils"
+
+export { useFreeLayoutResize } from "./hooks";

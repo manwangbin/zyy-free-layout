@@ -1,7 +1,7 @@
 import { VNode, defineComponent, PropType, Ref, h, ref, onMounted, watch } from "vue";
+import DragContainer from "./DragContainer";
 import { FreeLayoutService } from "@/service";
 import { Widget } from "@/service/widget";
-import DragContainer from "./DragContainer";
 import { DragService } from "@/service/dragService";
 import "../style.less";
 

@@ -1,6 +1,6 @@
 {
   "name": "zyy-free-layout",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "description": "[vue3+ts]自由拖动布局",
   "license": "MIT",
@@ -24,12 +24,12 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@rollup/plugin-babel": "^6.0.4",
-    "postcss-import": "^14.1.0",
     "uuid": "^9.0.1",
     "vue": "^3.2.13"
   },
   "devDependencies": {
+    "@rollup/plugin-babel": "^6.0.4",
+    "postcss-import": "^14.1.0",
     "@rollup/plugin-alias": "^3.1.9",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-json": "^4.1.0",
