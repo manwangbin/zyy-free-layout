@@ -3,7 +3,7 @@ import { WidgetState } from "@/enums";
 import { FreeLayoutService } from "./index";
 import { onMouseMove } from "@/utils";
 
-export class Widget implements DesignWidget {
+export class Widget<T = any> implements DesignWidget {
   container: HTMLElement | null = null;
 
   id: string;
@@ -32,7 +32,7 @@ export class Widget implements DesignWidget {
 
   levels: number = 0
 
-  initState: string = "{}";
+  initState?: T;
 
   dragOffset = {
     x: 0,
@@ -57,7 +57,7 @@ export class Widget implements DesignWidget {
     options.initState && (this.initState = options.initState);
   }
 
-  setOptions(options: DesignWidget) {
+  setOptions(options: DesignWidget<T>) {
     Object.assign(this, {
       ...options,
       x: Math.floor(options.x),
@@ -77,7 +77,7 @@ export class Widget implements DesignWidget {
     this.height = Math.floor(height);
   }
 
-  toJson(): DesignWidget {
+  toJson(): DesignWidget<T> {
     return {
       id: this.id,
       tag: this.tag,

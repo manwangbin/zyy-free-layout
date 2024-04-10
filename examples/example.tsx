@@ -1,6 +1,6 @@
 import {defineComponent, Ref, ref, h, computed, reactive, onMounted} from "vue";
 import './style.less'
-import {FreeLayout, FreeLayoutService} from "@/index";
+import {FreeLayout, FreeLayoutService, useFreeLayoutResize} from "@/index";
 
 // import { FreeLayout } from "../dist/test-free-layout.esm";
 // import { FreeLayoutService } from "../dist/index";
@@ -13,7 +13,17 @@ export default defineComponent({
 
   setup () {
 
-    const freeLayoutRef: Ref<{service: FreeLayoutService;} | null> = ref(null);
+    // const freeLayoutRef: Ref<{service: FreeLayoutService;} | null> = ref(null);
+
+    const { containerRef, freeLayoutRef } = useFreeLayoutResize({
+      // autoWidth: true,
+      horizontalCenter: true,
+      verticalCenter: true,
+      onRegister: (freeService) => { },
+      onUnRegister: () => { },
+      // onResize: ({ width }) => service.dragService.resizeHandler(width)
+    });
+
     const service = reactive({
       model: {
         template: null
@@ -22,7 +32,7 @@ export default defineComponent({
 
     let freeLayoutService: FreeLayoutService | null = null
 
-    const height = ref(1189)
+    const height = ref(800)
 
     const position = ref([841, 1189])
 
@@ -42,11 +52,13 @@ export default defineComponent({
         dragOffset: {
           x: 50,
           y: 50,
-        }
+        },
+        customDragNode: true
       }, e)
     }
 
     return {
+      containerRef,
       freeLayoutRef,
       height,
       position,
@@ -57,8 +69,8 @@ export default defineComponent({
 
   render () {
     return (
-      <div style="width: 100vw;height: 100vh">
-        <FreeLayout ref="freeLayoutRef" width={500} height={this.height}></FreeLayout>
+      <div ref="containerRef" style="width: 100vw;height: 100vh">
+        <FreeLayout ref="freeLayoutRef" width={600} height={this.height}></FreeLayout>
         <button onClick={(e) => this.createNewWidget(e)}>createNewWidget</button>
       </div>
     )

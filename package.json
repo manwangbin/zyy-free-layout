@@ -1,6 +1,6 @@
 {
   "name": "zyy-free-layout",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "private": false,
   "description": "[vue3+ts]自由拖动布局",
   "license": "MIT",

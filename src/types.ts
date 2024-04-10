@@ -2,7 +2,7 @@ import { FreeLayoutService } from "./service";
 import { Widget } from "./service/widget";
 import { WidgetState } from "./enums";
 
-export interface WidgetOption {
+export interface WidgetOption<T = any> {
   id?: string;
   tag: string;
   width: number;
@@ -15,10 +15,10 @@ export interface WidgetOption {
   disableResize?: boolean;
   customDragNode?: boolean;
   levels?: number;
-  initState?: string;
+  initState?: T;
 }
 
-export interface DesignWidget extends WidgetOption {
+export interface DesignWidget<T = any> extends WidgetOption<T> {
   id: string;
   x: number;
   y: number;
@@ -47,9 +47,9 @@ export interface PageRect extends Point {
 
 export interface SelectArea extends PageRect {}
 
-export interface MiddlewareParams {
+export interface MiddlewareParams<T = any> {
   service: FreeLayoutService;
-  widget: Widget;
+  widget: Widget<T>;
   event: MouseEvent;
   startEvent: MouseEvent;
 }

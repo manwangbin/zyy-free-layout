@@ -1,5 +1,5 @@
 import { reactive, provide, inject, unref } from "vue";
-import { DesignWidget, LayoutOptions, PageRect, Point, SelectArea, WidgetOption } from "@/types";
+import { DesignWidget, LayoutOptions, PageRect, Point, SelectArea, WidgetOption } from "../types";
 import { WidgetState } from "@/enums";
 import { Widget } from "./widget";
 import { v4 as uuidv4 } from "uuid";
